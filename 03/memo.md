@@ -98,5 +98,5 @@ len()は文字列の長さを返す
 ```python
 >>> s = 'supercalifragilisticexpialidocious'
 >>> len(s)
-34 
+34
 ```

@@ -43,3 +43,69 @@ __コンパイル済みのモジュールはプラットフォーム非依存__
 - の処理の詳細についてはPEP 3147を参照のこと。判断のフローチャートも掲載されている。 
 
 ## パッケージ
+
+__モジュールの集まり__
+
+`ex`
+
+```
+sound/                          トップレベルパッケージ
+    __init__.py              soundパッケージの初期化
+    formats/                  ファイル形式間変換用のサブパッケージ
+        __init__.py
+        wavread.py
+        wavwrite.py
+        aiffread.py
+        aiffwrite.py
+        auread.py
+        auwrite.py
+        ...
+    effects/                  エフェクタ用のサブパッケージ
+        __init__.py
+        echo.py
+        surround.py
+        reverse.py
+        ...
+    filters/                  フィルタ用のサブパッケージ
+        __init__.py
+        equalizer.py
+        vocoder.py
+        karaoke.py
+```
+
+あるディレクトリをパッケージを含むものとして扱わせるには
+\_\__init\_\__.pyファイルが必要。
+
+`import sound.effects.echo ` でモジュールを引っ張れる
+ただ、これによる参照はフルネームで行わねばならない
+
+
+```python
+sound.effects.echo.echofilter(input, output, delay=0.7, atten=4)
+```
+
+__サブモジュールの別ロード方法__
+
+```python
+from sound.effects import echo 
+```
+
+この場合は次のように使える
+
+```python
+echo.echofilter(input, output, delay=0.7, atten=4) 
+```
+
+直接インポートも可能
+
+```python
+from sound.effects.echo import echofilter 
+```
+
+↓
+
+```python
+echofilter(input, output, delay=0.7, atten=4) 
+```
+
+
